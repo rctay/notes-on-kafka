@@ -2,6 +2,8 @@
 
 This project demonstrates different configuration styles for a Kafka consumer to listen for messages with a string key and JSON value on the topic `topicA` — and tests!
 
+In this project, we use the `@KafkaListener` annotation on bean method style of setting up a consumer. The other styles like annotating the class are left as an exercise to the reader.
+
 ## Explicit consumer
 
 The configuration style in [ExplicitConsumerConfig](src/main/java/com/example/demo/configuration/ExplicitConsumerConfig.java) is the same one shown in the Introduction section of the Spring for Kafka reference manual.
@@ -55,3 +57,7 @@ await()
         .atMost(Duration.of(10, SECONDS))
         .until(() -> demoListener.getLastMessageReceived() != null);
 ```
+
+## The `kafkaListenerContainerFactory` name
+
+You might think of giving a different name to the listener container factory instead of `kafkaListenerContainerFactory()`, reasoning that this would work because the type signatures for the key and value are unchanged. The Spring Kafka reference manual section on [the `@KafkaListener` annotation](https://docs.spring.io/spring-kafka/reference/html/#kafka-listener-annotation), as well as the Javadoc for `@KafkaListener`, explains this — the default container factory is assumed to be available with a bean name of `kafkaListenerContainerFactory` unless one was explicitly defined via the `containerFactory` parameter to the annotation.
