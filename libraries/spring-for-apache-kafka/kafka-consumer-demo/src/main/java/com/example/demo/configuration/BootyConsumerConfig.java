@@ -26,7 +26,6 @@ public class BootyConsumerConfig {
         return factory;
     }
 
-
     @Bean
     public ConsumerFactory<String, String> consumerFactory(KafkaProperties properties) {
         Map<String, Object> props = properties.buildConsumerProperties();

@@ -30,7 +30,6 @@ public class ExplicitConsumerConfig {
         return factory;
     }
 
-
     @Bean
     public ConsumerFactory<Integer, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
