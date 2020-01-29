@@ -1,5 +1,7 @@
 package com.example.demo.components;
 
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +51,13 @@ class ExplicitConsumerConfigDemoListenerTest {
     @Test
     void listener_whenRecordIsSentOnTopicA_receivesMessage() {
         Map<String, Object> producerProps = KafkaTestUtils.producerProps(embeddedKafka);
+        producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        // we will serialize the JSON by hand, so specify string serialization
+        producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         ProducerFactory<String, String> pf = new DefaultKafkaProducerFactory<>(producerProps);
         KafkaTemplate<String, String> template = new KafkaTemplate<>(pf);
         template.setDefaultTopic("topicA");
-        template.sendDefault("\"foo\"");
+        template.sendDefault("key", "\"foo\"");
 
         await()
                 .atMost(Duration.of(10, SECONDS))
