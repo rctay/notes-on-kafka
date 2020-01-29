@@ -1,5 +1,62 @@
 # Apache Kafka
 
+## Command-line tools
+
+Kafka comes with a couple of command-line tools that can be used to interact with the cluster.
+
+This is not an exhaustive reference to the tools; there are many more options, run the commands with no arguments to view help on using it.
+
+The examples below assume access to Kafka command-line tools. If you are working with a Kafka deployed on Kubernetes (assuming Kafka is deployed in the `kafka` namespace and a  `testclient` pod is available), you can access these tools via:
+
+```console
+$ kubectl exec testclient -n kafka -it /bin/bash
+```
+
+### View messages in a topic
+
+If we would like to see all messages in a topic, we can use the Kafka client command line tool:
+
+```console
+$ kafka-console-consumer \
+--bootstrap-server kafka.kafka.svc.cluster.local:9092 \
+--topic <enter topic name> \
+--offset earliest \
+--partition 0
+```
+
+If you would also like to view the key, pass the following options to print the key, separated from the message with a Tab character†.
+
+```console
+... --property print.key=true --property key.separator="[press Tab key]" ...
+```
+
+†On a client machine (Ubuntu), we had to press <kbd>Ctrl</kbd> <kbd>V</kbd> on the keyboard followed by the <kbd>Tab</kbd> key to enter a literal Tab character. (The <kbd>Ctrl</kbd> <kbd>V</kbd> means to "verbatimly insert the next character pressed" https://superuser.com/a/421468.)
+
+### Checking if a consumer is lagging on a topic
+
+A consumer is *lagging* on a topic if the offset is less than the number of messages present in the topic.
+
+We can view this by running `kafka-consumer-groups`:
+
+```console
+$ kafka-consumer-groups \
+--bootstrap-server kafka.kafka.svc.cluster.local:9092 \
+--group <consumer group name> \
+--describe
+```
+
+If you don't know the consumer group, you can get all of them with `--list`:
+
+```console
+$ kafka-consumer-groups \
+--bootstrap-server kafka.kafka.svc.cluster.local:9092 \
+--list
+```
+
+### Resetting the offset for a consumer
+
+TBD
+
 ## Annotated Bibliography
 
 1. [Official Apache Kafka documentation](https://kafka.apache.org/documentation)
