@@ -1,9 +1,9 @@
 # Apache Kafka
 
-Apache Kafka is a platform that
+Apache Kafka is a platform that supports:
 
-- Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.
-- Stores streams of records in a fault-tolerant *durable* way - they are not removed, unlike the usual message queue.
+- Publishing and subscribing to streams of records, similar to a message queue or enterprise messaging system.
+- Storing streams of records in a fault-tolerant *durable* way - they are not removed, unlike the usual message queue.
 
 (from the [Introduction](https://kafka.apache.org/intro))
 
