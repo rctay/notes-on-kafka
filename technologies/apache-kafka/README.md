@@ -13,7 +13,7 @@ Apache Kafka is also used for Stream processing, where data in processing pipeli
 
 (from the [Use cases](https://kafka.apache.org/uses))
 
-## Command-line tools
+## Command-line tools for inspecting/troubleshooting
 
 Kafka comes with a couple of command-line tools that can be used to interact with the cluster.
 
