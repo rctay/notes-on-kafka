@@ -1,5 +1,18 @@
 # Apache Kafka
 
+Apache Kafka is a platform that
+
+- Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.
+- Stores streams of records in a fault-tolerant *durable* way - they are not removed, unlike the usual message queue.
+
+(from the [Introduction](https://kafka.apache.org/intro))
+
+This makes Apache Kafka suited as a backend for [Event sourcing](http://martinfowler.com/eaaDev/EventSourcing.html), a style of application design where state changes are logged as a time-ordered sequence of records. 
+
+Apache Kafka is also used for Stream processing, where data in processing pipelines consisting of multiple stages, where raw input data is consumed from Kafka topics and then aggregated, enriched, or otherwise transformed into new topics for further consumption or follow-up processing. For example, a processing pipeline for recommending news articles might crawl article content from RSS feeds and publish it to an "articles" topic; further processing might normalize or deduplicate this content and publish the cleansed article content to a new topic; a final processing stage might attempt to recommend this content to users.
+
+(from the [Use cases](https://kafka.apache.org/uses))
+
 ## Command-line tools
 
 Kafka comes with a couple of command-line tools that can be used to interact with the cluster.
